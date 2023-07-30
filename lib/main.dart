@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'consts/global_colors.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +25,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: lightScaffoldColor,
         primaryColor: lightCardColor,
-        backgroundColor: lightBackgroundColor,
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
             color: lightIconsColor,
@@ -48,10 +53,13 @@ class MyApp extends StatelessWidget {
         //     ),
         cardColor: lightCardColor,
         brightness: Brightness.light,
-        colorScheme: ThemeData().colorScheme.copyWith(
+        colorScheme: ThemeData()
+            .colorScheme
+            .copyWith(
               secondary: lightIconsColor,
               brightness: Brightness.light,
-            ),
+            )
+            .copyWith(background: lightBackgroundColor),
       ),
       home: const HomeScreen(),
     );
